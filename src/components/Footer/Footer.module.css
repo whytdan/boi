@@ -1,0 +1,33 @@
+.logosWrapper{
+  height: auto;
+  max-width: 350px !important;
+}
+
+.logosWrapper p{
+  text-align: right;
+  margin-bottom: 5px;
+}
+
+
+@media only screen and (max-width: 1142px){
+  .logosWrapper p{
+    text-align: left !important;
+    margin-left: 35px;
+  }
+}
+
+@media only screen and (max-width: 863px){
+  .logosWrapper p{
+    margin-left: 0;
+  }
+}
+
+
+
+
+
+/* .logosWrapper img{
+  width: 150px;
+  height: 100px;
+  object-fit: contain;
+} */

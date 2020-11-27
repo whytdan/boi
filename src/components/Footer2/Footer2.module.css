@@ -1,0 +1,108 @@
+.footer{
+  height: auto;
+  width: 100%;
+  padding: 40px 7%;
+}
+
+.footer__section{
+  display: flex;
+  justify-content: space-between;
+}
+
+@media only screen and (max-width: 865px){
+  
+  .responsive_section{
+    align-items: flex-start !important;
+  }
+
+}
+
+.footer__section_boi_logo{
+  width: 130px;
+  height: 150px;
+}
+
+.footer_about{
+  display: flex;
+  max-width: 600px;
+  align-items: flex-end;
+  /* margin-top: 40px; */
+  /* margin-left: auto; */
+}
+
+@media only screen and (max-width: 1293px){
+  .footer_about{
+    margin-left: 0;
+    margin-right: auto;
+    /* margin-top: 20px; */
+  }
+}
+@media only screen and (max-width: 600px){
+  .footer_about{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer_about p{
+    margin-left: 0 !important;
+    font-size: 12px !important;
+  }
+
+  .footer_about img{
+    margin-bottom: 0!important;
+  }
+}
+
+.footer_about p{
+  color: #707070;
+  font-size: 14px;
+  margin-left: 15px;
+  margin-bottom: 35px;
+  line-height: 25px;
+}
+
+.footer__logos{
+  padding: 30px 0 0;
+  width: 100%;
+}
+
+.footer__logos img{
+  width: 140px;
+  height: auto;
+  object-fit: contain;
+}
+
+.footer_p{
+  font-size: 16px;
+  color: black;
+  font-weight: 600;
+  font-family: var(--font-stack);
+  /* margin-bottom: 15px; */
+  line-height: 25px;
+}
+
+.footer__logos_slider{
+  display: none;
+}
+
+@media only screen and (max-width: 480px){
+  .logos_grid img{
+    margin-bottom: 20px;
+  }
+}
+
+@media only screen and (max-width: 865px){
+  .footer_p{
+    font-size: 14px;
+  }
+  .footer__section{
+    flex-direction: column;
+  }
+  .footer__logos{
+    display: none;
+  }
+  .footer__logos_slider{
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}

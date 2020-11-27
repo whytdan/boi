@@ -1,0 +1,12 @@
+.container{
+  padding: 40px 10%;
+}
+
+.container p{
+  font-size: 16px;
+  color: black;
+  font-weight: 600;
+  font-family: var(--font-stack);
+  margin-bottom: 15px;
+  line-height: 25px;
+}

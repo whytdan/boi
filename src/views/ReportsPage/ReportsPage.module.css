@@ -1,0 +1,40 @@
+.root{
+  flex-grow: 1;
+  margin: 50px auto 75px;
+  width: 60%;
+}
+
+.root h1{
+  font-size: 24px;
+  font-family: var(--font-stack);
+  color: #707070;
+}
+
+@media only screen and (max-width: 800px) {
+  .root{
+    width: 80%;
+    margin: 25px auto 50px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .root{
+    width: 85%;
+  }
+}
+
+
+
+@media only screen and (max-width: 959px) {
+  .container{
+    flex-direction: column-reverse;
+  }
+}
+
+.yearText{
+  cursor: pointer;
+}
+
+.yearText:hover{
+  font-weight: 600;
+}
