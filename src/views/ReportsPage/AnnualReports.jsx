@@ -1,10 +1,13 @@
 import { FormControl, Grid, Paper, Typography } from '@material-ui/core'
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BaseLayout from '../../layouts/BaseLayout';
 import Pagination from '@material-ui/lab/Pagination';
 import styles from './ReportsPage.module.css';
-import Divider from '@material-ui/core/Divider';
+import axios from "axios";
+import Loader from '../../components/UI/Loader/Loader';
+import { formatDate } from '../../_helpers/date'
+import { LanguageContext } from '../../App';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -12,10 +15,25 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left',
     color: theme.palette.text.secondary,
   },
-}));
+}));  
 
 export default function AnnualReports() {
+
+  const [reports, setReports] = useState(null);
+  const { REACT_APP_API_URL } = process.env;
+  const langState = useContext(LanguageContext);
+
+  const fetchReports = async () => {
+    const response = await axios(`${REACT_APP_API_URL}/${langState.lang}/annual-reports/`);
+    const data = response.data.results;
+    setReports(data);
+  }
+
   const classes = useStyles();
+
+  useEffect(() => {
+    fetchReports();
+  }, [langState.lang])
 
   return (
     <BaseLayout>
@@ -23,56 +41,30 @@ export default function AnnualReports() {
 
       <div className={styles.root}>
       
-      <h1>
-        Годовые отчеты
+      <h1 style={{marginBottom: 25}}>
+        {
+          langState.lang === 'ru' ? 'Годовые отчеты' :
+          langState.lang === 'kg' ? 'Жылдык отчёттор' :
+          'Annual reports'
+        }
       </h1>
 
       <Grid container spacing={3} className={styles.container}>
-
-
         <Grid item xs={12}>
-          <Paper className={classes.paper} style={{marginBottom: 25}}>
+        {reports ? reports.map((report, index) => (
+          <Paper className={classes.paper} style={{marginBottom: 25}} key={index}>
             <p className="single-new-date standart_p" style={{marginBottom: 10}}>
-            4 марта 2020
+            {formatDate(report.date.split('-'))}
             </p>
             <p className="standart_p single-new-title" style={{marginBottom: 10}}>
-            <a href="https://boi.org.ua/files/db/xd/3q-20-en.pdf" target="blank">
-                Годовой отчет за 2020
+            <a href={report.file} target="blank">
+                {report.title}
             </a>
             </p>
           </Paper>
-
-          <Paper className={classes.paper} style={{marginBottom: 25}}>
-            <p className="single-new-date standart_p" style={{marginBottom: 10}}>
-            11 марта 2019
-            </p>
-            <p className="standart_p single-new-title" style={{marginBottom: 10}}>
-            <a href="https://boi.org.ua/files/db/xd/3q-20-en.pdf" target="blank">
-                Годовой отчет за 2018
-            </a>
-            </p>
-          </Paper>
-
-          <Paper className={classes.paper} style={{marginBottom: 25}}>
-            <p className="single-new-date standart_p" style={{marginBottom: 10}}>
-            05 марта 2018
-            </p>
-            <p className="standart_p single-new-title" style={{marginBottom: 10}}>
-            <a href="https://boi.org.ua/files/db/xd/3q-20-en.pdf" target="blank">
-                Годовой отчет за 2019
-            </a>
-            </p>
-          </Paper>
+        )) :  <Loader/>}
+          
         </Grid>
-
-        {/* <Grid item xs={12} md={4}>
-        <Paper className={classes.paper}>
-        <Typography variant="body1" color="textSecondary" style={{textAlign: 'left'}}>
-          Выберите год
-        </Typography>
-        </Paper>
-        </Grid> */}
-      
       </Grid>
       </div>
     </BaseLayout>

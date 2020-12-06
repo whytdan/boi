@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import boiRussianLogo from "../../images/logo_rus.png";
 import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -22,6 +22,7 @@ import { NavLink } from "react-router-dom";
 import classes from "./Nav.module.css";
 import clsx from "clsx";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import { LanguageContext } from "../../App";
 
 export default function Nav(props) {
   const [langDrop, setLangDrop] = useState(null);
@@ -34,6 +35,8 @@ export default function Nav(props) {
   const [reportsSidebarDrop, setReportsSidebarDrop] = useState(false);
   const [pressCenterSidebarDrop, setPressCenterSidebarDrop] = useState(false);
   const [complaintSidebarDrop, setComplaintSidebarDrop] = useState(false);
+
+  const langState = useContext(LanguageContext);
 
   const handleAboutUsSidebarDrop = () => {
     setAboutUsSidebarDrop(!aboutUsSidebarDrop);
@@ -111,14 +114,18 @@ export default function Nav(props) {
 
           <div className="inner-navbar">
             <p className="inner-nav-a" style={{marginTop: 3}}>
-              О нас
+              {
+                langState.lang === 'ru' ? 'О нас' : 
+                langState.lang === 'kg' ? 'Биз жѳнүндѳ' : 
+                'About us'
+              }
               <IconButton
                 aria-controls="about-us-menu"
                 aria-haspopup="true"
                 onClick={handleAboutUsClick}
                 style={{ padding: "0" }}
               >
-                <ArrowDropDownIcon fontSize="medium" color="primary" />
+                <ArrowDropDownIcon color="primary" />
               </IconButton>
             </p>
             <Menu
@@ -131,19 +138,31 @@ export default function Nav(props) {
             >
               <MenuItem>
                 <NavLink to="/normative-base" className={classes.menuLink}>
-                  Миссия
+                {
+                langState.lang === 'ru' ? 'Миссия' : 
+                langState.lang === 'kg' ? 'Миссия' : 
+                'Mission'
+                }
                 </NavLink>
               </MenuItem>
 
               <MenuItem>
                 <NavLink to="/our-team" className={classes.menuLink}>
-                  Команда
+                  {
+                  langState.lang === 'ru' ? 'Команда' : 
+                  langState.lang === 'kg' ? 'Кызматкерлерибиз' : 
+                  'Team'
+                  }
                 </NavLink>
               </MenuItem>
 
               <MenuItem>
                 <NavLink to="/faq" className={classes.menuLink}>
-                  FAQ
+                  {
+                  langState.lang === 'ru' ? 'FAQ' : 
+                  langState.lang === 'kg' ? 'Суроо-жооптор' : 
+                  'FAQ'
+                }
                 </NavLink>
               </MenuItem>
             </Menu>
@@ -153,14 +172,18 @@ export default function Nav(props) {
 
 
             <p className="inner-nav-a" style={{marginTop: 3}}>
-              Подать жалобу
+              {
+                langState.lang === 'ru' ? 'Подать жалобу' : 
+                langState.lang === 'kg' ? 'Арыз берүү' : 
+                'Make a complaint'
+              }
               <IconButton
                 aria-controls="about-us-menu"
                 aria-haspopup="true"
                 onClick={handleComplaintClick}
                 style={{ padding: "0" }}
               >
-                <ArrowDropDownIcon fontSize="medium" color="primary" />
+                <ArrowDropDownIcon color="primary" />
               </IconButton>
             </p>
             <Menu
@@ -173,13 +196,21 @@ export default function Nav(props) {
             >
               <MenuItem>
                 <NavLink to="/complaint" className={classes.menuLink}>
-                  Онлайн форма
+                  {
+                  langState.lang === 'ru' ? 'Онлайн форма' : 
+                  langState.lang === 'kg' ? 'Онлайн форма' : 
+                  'Online form'
+                  }
                 </NavLink>
               </MenuItem>
 
               <MenuItem>
                 <NavLink to="/eligibility" className={classes.menuLink}>
-                  Критерии жалоб
+                  {
+                  langState.lang === 'ru' ? 'Критерии жалоб' : 
+                  langState.lang === 'kg' ? 'Критерийлер' : 
+                  'Criterias'
+                  }
                 </NavLink>
               </MenuItem>
             </Menu>
@@ -187,18 +218,26 @@ export default function Nav(props) {
             {/* ----------------------------------- */}
 
             <NavLink className="inner-nav-a" to="/consultation">
-              Консультация
+              {
+                langState.lang === 'ru' ? 'Консультация' : 
+                langState.lang === 'kg' ? 'Консультация' : 
+                'Consultation'
+              }
             </NavLink>
 
             <p className="inner-nav-a" style={{marginTop: 3}}>
-              Отчеты
+              {
+                langState.lang === 'ru' ? 'Отчеты' : 
+                langState.lang === 'kg' ? 'Отчёттор' : 
+                'Reports'
+              }
               <IconButton
                 aria-controls="reports-menu"
                 aria-haspopup="true"
                 onClick={handleReportsClick}
                 style={{ padding: "0" }}
               >
-                <ArrowDropDownIcon fontSize="medium" color="primary" />
+                <ArrowDropDownIcon color="primary" />
               </IconButton>
             </p>
 
@@ -212,30 +251,46 @@ export default function Nav(props) {
             >
               <MenuItem>
                 <NavLink to="/annual-reports" className={classes.menuLink}>
-                  Годовые
+                  {
+                    langState.lang === 'ru' ? 'Годовые' : 
+                    langState.lang === 'kg' ? 'Жылдык' : 
+                    'Annual'
+                  }
                 </NavLink>
               </MenuItem>
 
               <MenuItem>
                 <NavLink to="/quarter-reports" className={classes.menuLink}>
-                  Квартальные
+                  {
+                    langState.lang === 'ru' ? 'Квартальные' : 
+                    langState.lang === 'kg' ? 'Кварталдык' : 
+                    'Quarter'
+                  }
                 </NavLink>
               </MenuItem>
             </Menu>
 
             <NavLink className="inner-nav-a" to="/cases">
-              Кейсы
+              {
+                langState.lang === 'ru' ? 'Кейсы' : 
+                langState.lang === 'kg' ? 'Кейстер' : 
+                'Cases'
+              }
             </NavLink>
 
             <p className="inner-nav-a" style={{marginTop: 3}}>
-              Пресс-центр
+              {
+                langState.lang === 'ru' ? 'Пресс-центр' : 
+                langState.lang === 'kg' ? 'Пресс-центр' : 
+                'Press-center'
+              }
               <IconButton
                 aria-controls="press-center-menu"
                 aria-haspopup="true"
                 onClick={handlePressCenterClick}
                 style={{ padding: "0" }}
               >
-                <ArrowDropDownIcon fontSize="medium" color="primary" />
+                <ArrowDropDownIcon color="primary" />
               </IconButton>
             </p>
             <Menu
@@ -248,25 +303,41 @@ export default function Nav(props) {
             >
               <MenuItem>
                 <NavLink to="/news" className={classes.menuLink}>
-                  Новости
+                  {
+                    langState.lang === 'ru' ? 'Новости' : 
+                    langState.lang === 'kg' ? 'Жаңылыктар' : 
+                    'News'
+                  }
                 </NavLink>
               </MenuItem>
 
               <MenuItem>
                 <NavLink to="/mass-media" className={classes.menuLink}>
-                  Сми о нас
+                  {
+                    langState.lang === 'ru' ? 'Сми о нас' : 
+                    langState.lang === 'kg' ? 'Сми биз жѳнүндѳ' : 
+                    'Mass media about us'
+                  }
                 </NavLink>
               </MenuItem>
 
               <MenuItem>
                 <NavLink to="/media-materials" className={classes.menuLink}>
-                  Медиа материалы
+                  {
+                    langState.lang === 'ru' ? 'Медиа материалы' : 
+                    langState.lang === 'kg' ? 'Медиа материалдар' : 
+                    'Media materials'
+                  }
                 </NavLink>
               </MenuItem>
             </Menu>
 
             <NavLink to="/contacts" className="inner-nav-a">
-              Контакты
+              {
+                langState.lang === 'ru' ? 'Контакты' : 
+                langState.lang === 'kg' ? 'Контакттар' : 
+                'Contacts'
+              }
             </NavLink>
 
             {/* <a className="inner-nav-a" href="#contacts">
@@ -286,14 +357,19 @@ export default function Nav(props) {
               className="lang-dropdown"
               style={{ display: "flex", alignItems: "center" }}
             >
-              <p>Языки</p>
+              {
+                langState.lang === 'ru' ? (<p>Языки</p>) :
+                langState.lang === 'kg' ? (<p>Тилдер</p>) :
+                (<p>Languages</p>)
+              }
+              
               <IconButton
                 aria-controls="language-menu"
                 aria-haspopup="true"
                 onClick={handleClick}
                 style={{ padding: "0" }}
               >
-                <ArrowDropDownIcon fontSize="medium" color="primary" />
+                <ArrowDropDownIcon color="primary" />
               </IconButton>
               <Menu
                 id="language-menu"
@@ -303,9 +379,18 @@ export default function Nav(props) {
                 onClose={handleClose}
                 style={{top: 40}}
               >
-                <MenuItem onClick={handleClose}>РУС</MenuItem>
-                <MenuItem onClick={handleClose}>КЫР</MenuItem>
-                <MenuItem onClick={handleClose}>ENG</MenuItem>
+                <MenuItem onClick={() => {
+                  langState.setLang('ru')
+                  handleClose()
+                }}>РУС</MenuItem>
+                <MenuItem onClick={() => {
+                  langState.setLang('kg')
+                  handleClose()
+                }}>КЫР</MenuItem>
+                <MenuItem onClick={() => {
+                  langState.setLang('en')
+                  handleClose()
+                }}>ENG</MenuItem>
               </Menu>
             </div>
           </div>
@@ -346,7 +431,11 @@ export default function Nav(props) {
         <List>
           <NavLink to="/" className={classes.menuLink}>
             <ListItem button key="Main Page">
-              <ListItemText primary="Главная" />
+            {
+                langState.lang === 'ru' ? (<ListItemText primary="Главная" />) : 
+                langState.lang === 'kg' ? (<ListItemText primary="Башкы бет" />) : 
+                (<ListItemText primary="Main" />)
+            }
             </ListItem>
           </NavLink>
 
@@ -355,7 +444,11 @@ export default function Nav(props) {
             key="AboutUsOptions"
             onClick={handleAboutUsSidebarDrop}
           >
-            <ListItemText primary="О нас" />
+            {
+              langState.lang === 'ru' ? (<ListItemText primary="О нас" />) : 
+              langState.lang === 'kg' ? (<ListItemText primary="Биз жѳнүндѳ" />) : 
+              (<ListItemText primary="About us" />)
+            }
             {aboutUsSidebarDrop ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
 
@@ -367,10 +460,26 @@ export default function Nav(props) {
                   key="about-us/normative-base"
                   className={classes.nested}
                 >
-                  <ListItemText
-                    primary="Миссия"
-                    className={classes.nestedLink}
-                  />
+                  {
+                    langState.lang === 'ru' ? (
+                      <ListItemText
+                        primary="Миссия"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    langState.lang === 'kg' ? (
+                      <ListItemText
+                        primary="Миссия"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    (
+                      <ListItemText
+                        primary="Mission"
+                        className={classes.nestedLink}
+                      />
+                    )
+                  }
                 </ListItem>
               </NavLink>
 
@@ -380,16 +489,42 @@ export default function Nav(props) {
                   key="about-us/our-team"
                   className={classes.nested}
                 >
-                  <ListItemText
-                    primary="Наша команда"
-                    className={classes.nestedLink}
-                  />
+                  {
+                    langState.lang === 'ru' ? (
+                      <ListItemText
+                        primary="Наша команда"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    langState.lang === 'kg' ? (
+                      <ListItemText
+                        primary="Кызматкерлерибиз"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    (
+                      <ListItemText
+                        primary="Team"
+                        className={classes.nestedLink}
+                      />
+                    )
+                  }
                 </ListItem>
               </NavLink>
 
               <NavLink to="/faq">
                 <ListItem button key="about-us/faq" className={classes.nested}>
-                  <ListItemText primary="FAQ" className={classes.nestedLink} />
+                  {
+                    langState.lang === 'ru' ? (
+                      <ListItemText primary="FAQ" className={classes.nestedLink} />
+                    ) : 
+                    langState.lang === 'kg' ? (
+                      <ListItemText primary="Суроо-жооптор" className={classes.nestedLink} />
+                    ) : 
+                    (
+                      <ListItemText primary="FAQ" className={classes.nestedLink} />
+                    )
+                  }
                 </ListItem>
               </NavLink>
             </List>
@@ -403,7 +538,11 @@ export default function Nav(props) {
             key="ComplaintOptions"
             onClick={handleComplaintSidebarDrop}
           >
-            <ListItemText primary="Подать жалобу" />
+            {
+              langState.lang === 'ru' ? (<ListItemText primary="Подать жалобу" />) : 
+              langState.lang === 'kg' ? (<ListItemText primary="Арыз берүү" />) : 
+              (<ListItemText primary="Make a complaint" />)
+            }
             {complaintSidebarDrop ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
 
@@ -415,10 +554,26 @@ export default function Nav(props) {
                   key="/complaint"
                   className={classes.nested}
                 >
-                  <ListItemText
-                    primary="Онлайн форма"
-                    className={classes.nestedLink}
-                  />
+                  {
+                    langState.lang === 'ru' ? (
+                      <ListItemText
+                        primary="Онлайн форма"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    langState.lang === 'kg' ? (
+                      <ListItemText
+                        primary="Онлайн форма"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    (
+                      <ListItemText
+                        primary="Online form"
+                        className={classes.nestedLink}
+                      />
+                    )
+                  }
                 </ListItem>
               </NavLink>
 
@@ -428,10 +583,26 @@ export default function Nav(props) {
                   key="/eligibility"
                   className={classes.nested}
                 >
-                  <ListItemText
-                    primary="Консультация"
-                    className={classes.nestedLink}
-                  />
+                  {
+                    langState.lang === 'ru' ? (
+                      <ListItemText
+                        primary="Критерии жалоб"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    langState.lang === 'kg' ? (
+                      <ListItemText
+                        primary="Критерийлер"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    (
+                      <ListItemText
+                        primary="Criterias"
+                        className={classes.nestedLink}
+                      />
+                    )
+                  }
                 </ListItem>
               </NavLink>
             </List>
@@ -442,7 +613,11 @@ export default function Nav(props) {
 
           <NavLink to="/consultation" className={classes.menuLink}>
             <ListItem button key="Consultation">
-              <ListItemText primary="Консультация" />
+              {
+                langState.lang === 'ru' ? (<ListItemText primary="Консультация" />) : 
+                langState.lang === 'kg' ? (<ListItemText primary="Консультация" />) : 
+                (<ListItemText primary="Consultation" />)
+              }
             </ListItem>
           </NavLink>
 
@@ -451,7 +626,11 @@ export default function Nav(props) {
             key="CasesOptions"
             onClick={handleReportsSidebarDrop}
           >
-            <ListItemText primary="Отчеты" />
+            {
+              langState.lang === 'ru' ? (<ListItemText primary="Отчеты" />) : 
+              langState.lang === 'kg' ? (<ListItemText primary="Отчёттор" />) : 
+              (<ListItemText primary="Reports" />)
+            }
             {reportsSidebarDrop ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
 
@@ -463,10 +642,26 @@ export default function Nav(props) {
                   key="/annual-reports"
                   className={classes.nested}
                 >
-                  <ListItemText
-                    primary="Годовые отчеты"
-                    className={classes.nestedLink}
-                  />
+                  {
+                    langState.lang === 'ru' ? (
+                      <ListItemText
+                        primary="Годовые отчеты"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    langState.lang === 'kg' ? (
+                      <ListItemText
+                        primary="Жылдык отчёттор"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    (
+                      <ListItemText
+                        primary="Annual reports"
+                        className={classes.nestedLink}
+                      />
+                    )
+                  }
                 </ListItem>
               </NavLink>
 
@@ -476,10 +671,26 @@ export default function Nav(props) {
                   key="/quarter-reports"
                   className={classes.nested}
                 >
-                  <ListItemText
-                    primary="Квартальные отчеты"
-                    className={classes.nestedLink}
-                  />
+                  {
+                    langState.lang === 'ru' ? (
+                      <ListItemText
+                        primary="Квартальные отчеты"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    langState.lang === 'kg' ? (
+                      <ListItemText
+                        primary="Кварталдык отчёттор"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    (
+                      <ListItemText
+                        primary="Quarter reports"
+                        className={classes.nestedLink}
+                      />
+                    )
+                  }
                 </ListItem>
               </NavLink>
             </List>
@@ -487,7 +698,11 @@ export default function Nav(props) {
 
           <NavLink to="/cases" className={classes.menuLink}>
             <ListItem button key="Cases">
-              <ListItemText primary="Кейсы" />
+              {
+                langState.lang === 'ru' ? (<ListItemText primary="Кейсы" />) : 
+                langState.lang === 'kg' ? (<ListItemText primary="Кейстер" />) : 
+                (<ListItemText primary="Cases" />)
+              }
             </ListItem>
           </NavLink>
 
@@ -496,7 +711,11 @@ export default function Nav(props) {
             key="PressCenterOptions"
             onClick={handlePressCenterSidebarDrop}
           >
-            <ListItemText primary="Пресс-центр" />
+            {
+              langState.lang === 'ru' ? (<ListItemText primary="Пресс-центр" />) : 
+              langState.lang === 'kg' ? (<ListItemText primary="Пресс-центр" />) : 
+              (<ListItemText primary="Press-center" />)
+            }
             {pressCenterSidebarDrop ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
 
@@ -508,10 +727,26 @@ export default function Nav(props) {
                   key="/news"
                   className={classes.nested}
                 >
-                  <ListItemText
-                    primary="Новости"
-                    className={classes.nestedLink}
-                  />
+                  {
+                    langState.lang === 'ru' ? (
+                      <ListItemText
+                        primary="Новости"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    langState.lang === 'kg' ? (
+                      <ListItemText
+                        primary="Жаңылыктар"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    (
+                      <ListItemText
+                        primary="News"
+                        className={classes.nestedLink}
+                      />
+                    )
+                  }
                 </ListItem>
               </NavLink>
 
@@ -521,10 +756,26 @@ export default function Nav(props) {
                   key="/mass-media"
                   className={classes.nested}
                 >
-                  <ListItemText
-                    primary="Сми о нас"
-                    className={classes.nestedLink}
-                  />
+                  {
+                    langState.lang === 'ru' ? (
+                      <ListItemText
+                        primary="Сми о нас"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    langState.lang === 'kg' ? (
+                      <ListItemText
+                        primary="Сми биз жѳнүндѳ"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    (
+                      <ListItemText
+                        primary="Mass media about us"
+                        className={classes.nestedLink}
+                      />
+                    )
+                  }
                 </ListItem>
               </NavLink>
 
@@ -534,10 +785,26 @@ export default function Nav(props) {
                   key="/media-materials"
                   className={classes.nested}
                 >
-                  <ListItemText
-                    primary="Медиа материалы"
-                    className={classes.nestedLink}
-                  />
+                  {
+                    langState.lang === 'ru' ? (
+                      <ListItemText
+                        primary="Медиа материалы"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    langState.lang === 'kg' ? (
+                      <ListItemText
+                        primary="Медиа материалдар"
+                        className={classes.nestedLink}
+                      />
+                    ) : 
+                    (
+                      <ListItemText
+                        primary="Media materials"
+                        className={classes.nestedLink}
+                      />
+                    )
+                  }
                 </ListItem>
               </NavLink>
             </List>
@@ -545,7 +812,11 @@ export default function Nav(props) {
 
           <NavLink to="/contacts" className={classes.menuLink}>
             <ListItem button key="Contacts">
-              <ListItemText primary="Контакты" />
+              {
+                langState.lang === 'ru' ? (<ListItemText primary="Контакты" />) : 
+                langState.lang === 'kg' ? (<ListItemText primary="Контакттар" />) : 
+                (<ListItemText primary="Contacts" />)
+              }
             </ListItem>
           </NavLink>
 

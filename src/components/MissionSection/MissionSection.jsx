@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import skladImg from '../../images/sklad.jpg';
+import axios from "axios";
+import { LanguageContext } from "../../App";
 
 export default function MissionSection() {
+  const { REACT_APP_API_URL } = process.env;
+
+  const [mission, setMission] = useState(null);
+  const langState = useContext(LanguageContext);
+
+  const fetchMission = async (url) => {
+    const response = await axios.get(url);
+    const data = response.data.results[0];
+    console.log(data);
+    setMission(data);
+  }
+
+  useEffect(() => {
+    const url = `${REACT_APP_API_URL}/${langState.lang}/missions/`;
+    fetchMission(url);
+  }, [langState.lang]);
+
   return (
     <section className="mission-section">
       <div className="mission-icon">
@@ -74,7 +93,14 @@ export default function MissionSection() {
             </g>
           </g>
         </svg>
-        <h1>Миссия</h1>
+        <h1>
+          {
+            langState.lang === 'ru' ? 'Миссия' :
+            langState.lang === 'kg' ? 'Биздин миссиябыз' :
+            'Our mission'
+          }
+          
+        </h1>
       </div>
       <div className="mission-info">
         <div className="mission-info-text">
@@ -98,12 +124,12 @@ export default function MissionSection() {
             </svg>
           </div>
           <p style={{ maxWidth: 460 }}>
-          Наша миссия - независимо защищать интересы бизнеса от неправомерных действий государственных органов, органов местного самоуправления и государственных предприятий, снижая коррупцию и улучшая деловой климат в Кыргызской Республике
+          {mission ? mission.mission : null}
           </p>
         </div>
         <div
           className="mission-info-image"
-          style={{ backgroundImage: `url("${skladImg}")` }}
+          style={{ backgroundImage: `url("${mission ? mission.image : null}")` }}
         ></div>
       </div>
     </section>

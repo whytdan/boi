@@ -1,13 +1,21 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {DropzoneDialog} from "material-ui-dropzone";
 import Button from "@material-ui/core/Button";
 import {Typography, Link} from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import { LanguageContext } from '../../App';
+
 
 export default function FileDropzone(props) {
 
   const [open, setOpen] = useState(false);
-  const [currentImageName, setcurrentImageName] = useState([])
-  console.log(props)
+  const [currentFileNames, setCurrentFileNames] = useState(props.value);
+  const langState = useContext(LanguageContext);
+  
+  if(props.isSubmitted && currentFileNames.length !== 0){
+    setCurrentFileNames([])
+  }
+
   return (
     <div
       style={{marginTop: '20px'}}
@@ -16,17 +24,34 @@ export default function FileDropzone(props) {
         variant="contained" 
         color="primary"
         style={{marginBottom: '15px'}}
-        // style={{height: '80px'}} 
         onClick={() => setOpen(true)}>
-        Добавить файл(ы)
+        {
+          langState.lang === 'ru' ? 'Добавить файл(ы)' :
+          langState.lang === 'kg' ? 'Файлдарды кошуу' :
+          'Add file(s)'
+        }
       </Button>
 
       <DropzoneDialog
-        // acceptedFiles={["image/*"]}
-        dropzoneText="Выберите или перетащите файл"
-        dialogTitle="Загрузить файл"
-        cancelButtonText="Отмена"
-        submitButtonText="Загрузить"
+        dropzoneText={`${
+          langState.lang === 'ru' ? 'Выберите или перетащите файл' :
+          langState.lang === 'kg' ? 'Файлды тандаңыз же сүйрөңүз' : 
+          'Select or drag a file'
+        }`}
+        dialogTitle={`${
+          langState.lang === 'ru' ? 'Загрузить файл' :
+          langState.lang === 'kg' ? 'Файлды жүктөө' :
+          'Upload file'
+        }`}
+        cancelButtonText={`${
+          langState.lang === 'ru' ? 'Отмена' :
+          langState.lang === 'kg' ? 'Жокко чыгаруу' : 
+          'Cancel'
+        }`}
+        submitButtonText={`${
+          langState.lang === 'ru' ? 'Загрузить' :
+          langState.lang === 'kg' ? 'Жүктөө' :
+          'Upload'}`}
         previewText="Файл(ы): "
         maxFileSize={5000000}
         filesLimit={5}
@@ -34,29 +59,28 @@ export default function FileDropzone(props) {
         alertSnackbarProps={{message: 'bazar jok!'}}
         onClose={() => setOpen(false)}
         onSave={(files) => {
-          console.log("Files:", files);
-          // props.setFieldValue(props.name, files[0])
+          props.setFieldValue(props.name, files)
           setOpen(false);
         }}
         showPreviews={true}
         showAlerts={false}
         showFileNamesInPreview={true}
-        getFileAddedMessage={(fileName) => setcurrentImageName([...currentImageName, fileName])}
+        getFileAddedMessage={(fileName) => setCurrentFileNames([...currentFileNames, fileName])}
       />
 
       {
-        props.existingFileLink && typeof props.existingFileLink === 'string'
-          ? <Typography className="mt-2">
-            <Link href={props.existingFileLink}>{props.existingFileLink.substring(8, 28)}</Link>
-          </Typography>
+        props.existingFileLink && typeof props.existingFileLink === 'string' ?
+          <span></span>
           : 
-          currentImageName.map((link, index) => (
-          <>
+          currentFileNames.map((link, index) => (
+          <div style={{display: "flex", marginBottom: 15}} key={index}>
           <Typography className="mt-2" color="textSecondary">
             {link.length > 30 ? link.substring(0, 29) + "..." : link}
           </Typography>
-          <br/>
-          </>
+          <CloseIcon style={{cursor: "pointer"}} onClick={() => {
+            setCurrentFileNames(currentFileNames.filter((_, fileIndex) => index !== fileIndex));
+          }}/>
+          </div>
         ))
       }
     </div>

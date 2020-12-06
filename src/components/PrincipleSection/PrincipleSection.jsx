@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import Slider from "react-slick";
 import styles from "./PrincipleSection.module.css";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { LanguageContext } from "../../App";
 
 
 function SliderPrevArrow(props) {
@@ -63,10 +64,19 @@ export default function PrincipleSection() {
     ]
   };
 
+  const langState = useContext(LanguageContext);
+
   return (
     <section className="principles-section">
       <div className="mission-icon">
-        <h1>Принципы</h1>
+        <h1>
+          {
+            langState.lang === 'ru' ? 'Принципы' :
+            langState.lang === 'kg' ? 'Принциптер' : 
+            'Our principles'
+          }
+          
+        </h1>
       </div>
 
       <div className={["principles", styles.sliderWrap].join(" ")}>
@@ -140,7 +150,14 @@ export default function PrincipleSection() {
                 </g>
               </g>
             </svg>
-            <p>Справедливость</p>
+            <p>
+              {
+                langState.lang === 'ru' ? 'Справедливость' : 
+                langState.lang === 'kg' ? 'Адилеттүүлүк' :
+                'Legitimacy'
+              }
+              
+            </p>
           </div>
 
           <div className="single-principle">
@@ -229,7 +246,13 @@ export default function PrincipleSection() {
                 </g>
               </g>
             </svg>
-            <p>Законность</p>
+            <p>
+            {
+              langState.lang === 'ru' ? 'Законность' : 
+              langState.lang === 'kg' ? 'Мыйзамдуулук' :
+              'Rule of law'
+            }
+            </p>
           </div>
 
           <div className="single-principle">
@@ -249,7 +272,13 @@ export default function PrincipleSection() {
                 fill="white"
               />
             </svg>
-            <p>Независимость</p>
+            <p>
+              {
+                langState.lang === 'ru' ? 'Независимость':
+                langState.lang === 'kg' ? 'Кѳз карансыздык':
+                'Independence'
+              }
+              </p>
           </div>
 
           <div className="single-principle">
@@ -304,7 +333,13 @@ export default function PrincipleSection() {
                 </clipPath>
               </defs>
             </svg>
-            <p>Профессионализм</p>
+            <p>
+            {
+              langState.lang === 'ru' ? 'Профессионализм':
+              langState.lang === 'kg' ? 'Кесипкөйлүк':
+              'Professionalism'
+            }
+            </p>
           </div>
 
           <div className="single-principle">
@@ -336,7 +371,13 @@ export default function PrincipleSection() {
                 fill="white"
               />
             </svg>
-            <p>Честность</p>
+            <p>
+            {
+              langState.lang === 'ru' ? 'Честность':
+              langState.lang === 'kg' ? 'Чынчылдык':
+              'Integrity'
+            }
+            </p>
           </div>
 
           <div className="single-principle">
@@ -438,7 +479,13 @@ export default function PrincipleSection() {
                 </g>
               </g>
             </svg>
-            <p>Сотрудничество</p>
+            <p>
+            {
+              langState.lang === 'ru' ? 'Сотрудничество':
+              langState.lang === 'kg' ? 'Кызматташуу':
+              'Cooperation'
+            }
+            </p>
           </div>
 
           <div className="single-principle">
@@ -482,7 +529,14 @@ export default function PrincipleSection() {
                 fill="white"
               />
             </svg>
-            <p>Принципиальность</p>
+            <p>
+              {
+                langState.lang === 'ru' ? 'Принципиальность' :
+                langState.lang === 'kg' ? 'Актык' :
+                'Transparency'
+              }
+              
+            </p>
           </div>
 
           <div className="single-principle">
@@ -571,7 +625,13 @@ export default function PrincipleSection() {
                 </g>
               </g>
             </svg>
-            <p>Беспристрастность</p>
+            <p>
+              {
+                langState.lang === 'ru' ? 'Беспристрастность' : 
+                langState.lang === 'kg' ? 'Калыс' :
+                'Impartiality'
+              }
+              </p>
           </div>
 
           <div className="single-principle">
@@ -615,7 +675,13 @@ export default function PrincipleSection() {
                 fill="white"
               />
             </svg>
-            <p>Открытость</p>
+            <p>
+              {
+                langState.lang === 'ru' ? 'Открытость' :
+                langState.lang === 'kg' ? 'Ачыктык' :
+                'Openness'
+              }
+            </p>
           </div>
 
           <div className="single-principle">
@@ -666,7 +732,13 @@ export default function PrincipleSection() {
                 </clipPath>
               </defs>
             </svg>
-            <p>Эффективность</p>
+            <p>
+            {
+              langState.lang === 'ru' ? 'Эффективность' :
+              langState.lang === 'kg' ? 'Натыйжалуулук' :
+              'Efficiency'
+            }
+              </p>
           </div>
 
           <div className="single-principle">
@@ -706,7 +778,13 @@ export default function PrincipleSection() {
                 fill="white"
               />
             </svg>
-            <p>Подотчетность</p>
+            <p>
+            {
+              langState.lang === 'ru' ? 'Подотчетность' :
+              langState.lang === 'kg' ? 'Жоопкерчилик' :
+              'Accountability'
+            }
+            </p>
           </div>
 
           <div className="single-principle">
@@ -746,7 +824,13 @@ export default function PrincipleSection() {
                 fill="white"
               />
             </svg>
-            <p>Доверие</p>
+            <p>
+              {
+                langState.lang === 'ru' ? 'Доверие' :
+                langState.lang === 'kg' ? 'Ишеним' :
+                'Confidence'
+              }
+            </p>
           </div>
         </Slider>
       </div>

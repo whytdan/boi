@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import classes from "./Footer2.module.css";
 import boi_logo from "../../images/logos/ebbr_logo.png";
 import logo1 from "../../images/logos/logo1.png";
 import logo2 from "../../images/logos/logo2.png";
 import logo3 from "../../images/logos/logo3.png";
 import logo4 from "../../images/logos/logo4.png";
-import logo5 from "../../images/logos/AOC.png";
+import logo5 from "../../images/logos/logoAOS.png";
 import logo6 from "../../images/logos/ubk.jpg";
 import logo7 from "../../images/logos/min_economy.jpeg";
 import logo8 from "../../images/logos/amcham.png";
 import { Grid } from "@material-ui/core";
 import Slider from "react-slick";
 import styles from "../UI/Slider.module.css";
+import { LanguageContext } from "../../App";
 
 const settings = {
   infinite: true,
@@ -27,6 +28,9 @@ const settings = {
 };
 
 export default function Footer2() {
+
+  const langState = useContext(LanguageContext);
+
   return (
     <footer className={classes.footer}>
       <div 
@@ -40,14 +44,22 @@ export default function Footer2() {
                 alt="boi-logo"
               />
               <p>
-                Институт Бизнес-омбудсмена Кыргызской Республики финансируется
-                Специальным фондом акционеров Европейского банка реконструкции и
-                развития (ЕБРР)
+                {
+                  langState.lang === 'ru' ? `Институт Бизнес-омбудсмена Кыргызской Республики финансируется
+                  Специальным фондом акционеров Европейского банка реконструкции и
+                  развития (ЕБРР)` : langState.lang === 'kg' ? `Кыргыз Республикасынын Бизнес-акыйкатчы институту Европа Реконструкциялоо жана өнүктүрүү Банкынын (ЕРӨБ) Акционерлеринин Атайын Фонду тарабынан каржыланат` : `The  Business Ombudsman Institute of the Kyrgyz Republic is funded by the Special Fund of Shareholders of the European Bank for Reconstruction and Development (EBRD)`
+                }
               </p>
             </div>
 
         <div className="footer-social-media">
-          <p>Мы в социальных сетях</p>
+          <p>
+            {
+              langState.lang === 'ru' ? 'Мы в социальных сетях' :
+              langState.lang === 'kg' ? 'Социалдык тармактагы баракчаларыбыз' :
+              'We are on social networks'
+            }  
+          </p>
           <div className="social-medias">
             <a href="https://www.linkedin.com/company/boikyrgyzstan">
               <svg
@@ -180,7 +192,13 @@ export default function Footer2() {
 
       <div className={classes.footer__section}>
         <div className={classes.footer__logos}>
-          <p>Наши партнеры</p> <br />
+          <p>
+            {
+              langState.lang === 'ru' ? 'Партнеры' :
+              langState.lang === 'kg' ? 'Партнёрлор' : 
+              'Partners'
+            }
+          </p> <br />
           <Grid container spacing={2} justify="space-around" className={classes.logos_grid}>
             <img src={logo1} alt="" />
             <img src={logo2} alt="" />

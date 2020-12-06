@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import BaseLayout from "../layouts/BaseLayout";
 import newsImg from "../images/meeting.jpeg";
 import Slider from "react-slick";
 import styles from "../components/UI/Slider.module.css";
+import axios from "axios";
+import ReactHtmlParser from 'react-html-parser';
+import Loader from "../components/UI/Loader/Loader";
+import { formatDate } from '../_helpers/date';
+import reportsStyles from '../views/ReportsPage/ReportsPage.module.css';
+import { LanguageContext } from "../App";
+
 
 const settings = {
   dots: true,
@@ -16,96 +23,56 @@ const settings = {
   pauseOnHover: false,
 };
 
-export default function NewsDetalPage() {
+export default function NewsDetalPage(props) {
+
+  const [newsDetail, setNewsDetail] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const { REACT_APP_API_URL } = process.env;
+  const newsId = props.match.params.id;
+
+  const langState = useContext(LanguageContext);
+
+  const fetchNewsDetail  = async (url) => {
+    const response = await axios.get(url);
+    const data = response.data;
+    setNewsDetail(data);
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    const url = `${REACT_APP_API_URL}/${langState.lang}/news/${newsId}/` 
+    fetchNewsDetail(url).then(() => setLoading(false));
+  }, [langState.lang]);
+
   return (
     <BaseLayout>
       <div style={{ height: 100 }}></div>
-      <section className="news_cases_content">
-        <div className="news-section active">
-          <div className="single-new">
-            <p className="single-new-date standart_p">26 октябрь 2020</p>
+        <section className="news_cases_content">
+        <div className={['news-section', 'active', reportsStyles.root].join(' ')}>
+          {loading ? (<h1>
+            Загрузка...
+          </h1>) : null}
+        {newsDetail ? (
+          <div className="single-new" style={{paddingTop: 0}}>
+        <p className="single-new-date standart_p">{formatDate(newsDetail.date.split('-'))}</p>
             <p className="standart_p single-new-title" style={{marginBottom: "20px"}}>
-              Бизнес-омбудсмен: верховенство закона, создание условий для
-              развития бизнеса и полная защита бизнеса и предпринимателей -
-              ключевые направления стабилизации экономики
+              {newsDetail.title}
             </p>
             <Slider {...settings} className={{cursor: "pointer"}}>
-                <img className={styles.heroImg} src={newsImg} />
-                <img className={styles.heroImg} src={newsImg} />
-                <img className={styles.heroImg} src={newsImg} />
-              {/* <div
-                style={{ backgroundImage: `url("${newsImg}")` }}
-                className="single-new-image"></div> */}
+                <img className={styles.heroImg} src={newsDetail.image} />
             </Slider>
 
             <br />
             <p className="standart_p single-new-text" style={{marginTop: "20px"}}>
-              Бизнес-омбудсмен Кыргызской Республики г-н Робин Орд-Смит
-              подчеркнул важность верховенства закона, создания условий для
-              развития бизнеса и полной защиты бизнеса и предпринимателей в
-              качестве ключевых мер для стабилизации экономики в рамках
-              заседания Совета по развитию бизнеса и инвестициям, прошедшем 23
-              октября 2020 года.
-              <br />
-              <br />
-              «Мы переживаем критическое для страны время, это чрезвычайно
-              трудный год для бизнеса, экономики, граждан и страны. Пандемия и
-              политическая нестабильность нанесли серьезный удар экономике
-              страны. В этой связи с целью стабилизации и роста экономики
-              необходим фокус на четырех ключевых областях: • верховенство
-              закона; • проведение реформ, в том числе ускоренное введение
-              цифровизации для предоставления государственных услуг, упрощение
-              налогового администрирования; • создание условий для развития
-              бизнеса для сохранения и увеличения количества рабочих мест; •
-              полноценная защита бизнеса и предпринимателей.
-              <br />
-              <br />
-              Пошатнувшееся доверие бизнеса и инвесторов можно будет вернуть,
-              когда будет уверенность в верховенстве закона, а не в ее
-              избирательности, когда права бизнеса будут защищены, а не
-              нарушены, когда все будут нести одинаковую ответственность перед
-              законами, когда все действия будут прозрачны, в том числе
-              действия, направленные на искоренение коррупции».
-              <br />
-              <br />
-              Бизнес-омбудсмен поприветствовал заявления исполняющего
-              обязанности президента/премьер-министра и нового правительства,
-              направленные на стабилизацию экономики, восстановление доверия
-              бизнеса и инвесторов, защиту частной собственности, борьбу с
-              коррупцией и установление справедливости, проведение реформ в
-              экономической, судебной и правоохранительной сферах.
-              Бизнес-омбудсмен подчеркнул, что любые заявления должны быть
-              подкреплены реальными шагами и действиями. К сожалению, ранее
-              часто обязательства правительства не сопровождались
-              последовательными и надлежащими действиями.
-              <br />
-              <br />
-              «В ходе рассмотрений жалоб предпринимателей мною была обнаружена
-              тревожная тенденция незаконных действий и практик отдельных
-              государственных органов, в частности:
-              <br />
-              <br />
-              • государственные органы сами интерпретируют законодательство, не
-              имея на это полномочий; • системная тенденция государственных
-              органов интерпретировать нормы законодательства в пользу
-              государства, а не в пользу предпринимателей (в нарушение законов
-              "О защите прав предпринимателей" от 1 февраля 2001 года, "О
-              нормативных правовых актах Кыргызской Республики" от 20 июля 2009
-              года, Налогового кодекса); • несогласованность в принятии решений
-              с тенденцией к отмене ранее принятых своих же решений».
-              <br />
-              <br />
-              Бизнес-омбудсмен предостерег руководство страны и государственные
-              органы от чрезмерных попыток пополнения государственного бюджета
-              путем дальнейшего давления на бизнес и инвесторов. Более
-              эффективными видятся усилия по улучшению деловой среды и
-              инвестиционного климата через проведение реформ, направленных на
-              облегчение ведение бизнеса, что позволит увеличить налоговые
-              поступления за счет выхода бизнеса из тени.
+            {ReactHtmlParser(newsDetail.description)}
             </p>
           </div>
+          ) : <Loader/>}
         </div>
       </section>
+
+      
+      
     </BaseLayout>
   );
 }

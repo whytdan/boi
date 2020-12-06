@@ -7,13 +7,13 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import FileDropZone from "../UI/FileDropZone.jsx";
 import * as Yup from "yup";
 import { 
-  complaint_targets,
-  confirm_options, 
-  complaint_types, 
-  document_types, 
-  regions, 
-  activities, 
-  response_types,
+  complaint_targets_kg,
+  confirm_options_kg, 
+  complaint_types_kg, 
+  document_types_kg, 
+  regions_kg, 
+  activities_kg, 
+  response_types_kg,
   initialValuesSchema
 } from './constants';
 import TextError from "../UI/TextError";
@@ -28,27 +28,27 @@ export default function ComplaintForm() {
   const [isLoading, setLoading] = useState(false);
 
   const validationSchema = Yup.object({
-    complaint_target: Yup.string().required("Обязательное поле!"),
-    target_org_name: Yup.string().required("Обязательное поле!"),
-    court_process: Yup.string().required("Обязательное поле!"),
-    appeal: Yup.string().required("Обязательное поле!"),
-    one_year: Yup.string().required("Обязательное поле!"),
-    complaint_type: Yup.string().required("Обязательное поле!"),
-    region: Yup.string().required("Обязательное поле!"),
-    activity: Yup.string().required("Обязательное поле!"),
-    complaint_description: Yup.string().required("Обязательное поле!"),
-    problem_solve: Yup.string().required("Обязательное поле!"),
-    our_act: Yup.string().required("Обязательное поле!"),
-    is_anonymous: Yup.string().required("Обязательное поле!"),
-    applicant_name: Yup.string().required("Обязательное поле!"),
-    address: Yup.string().required("Обязательное поле!"),
-    email: Yup.string().email("Неверный формат, введите валидный email").required("Обязательное поле!"),
-    response_type: Yup.string().required("Обязательное поле!"),
+    complaint_target: Yup.string().required("Бул маалыматты толтуруңуз!"),
+    target_org_name: Yup.string().required("Бул маалыматты толтуруңуз!"),
+    court_process: Yup.string().required("Бул маалыматты толтуруңуз!"),
+    appeal: Yup.string().required("Бул маалыматты толтуруңуз!"),
+    one_year: Yup.string().required("Бул маалыматты толтуруңуз!"),
+    complaint_type: Yup.string().required("Бул маалыматты толтуруңуз!"),
+    region: Yup.string().required("Бул маалыматты толтуруңуз!"),
+    activity: Yup.string().required("Бул маалыматты толтуруңуз!"),
+    complaint_description: Yup.string().required("Бул маалыматты толтуруңуз!"),
+    problem_solve: Yup.string().required("Бул маалыматты толтуруңуз!"),
+    our_act: Yup.string().required("Бул маалыматты толтуруңуз!"),
+    is_anonymous: Yup.string().required("Бул маалыматты толтуруңуз!"),
+    applicant_name: Yup.string().required("Бул маалыматты толтуруңуз!"),
+    address: Yup.string().required("Бул маалыматты толтуруңуз!"),
+    email: Yup.string().email("Туура электрондук даректи жазыӊыз!").required("Бул маалыматты толтуруңуз!"),
+    response_type: Yup.string().required("Бул маалыматты толтуруңуз!"),
 
-    complaint_files: Yup.array().min(1, 'Требуется как минимум один файл!'),
-    term1: Yup.boolean().oneOf([true], 'Обязательное поле!'),
-    term2: Yup.boolean().oneOf([true], 'Обязательное поле!'),
-    term3: Yup.boolean().oneOf([true], 'Обязательное поле!'),
+    complaint_files: Yup.array().min(1, 'Кеминде бир файл талап кылынат!'),
+    term1: Yup.boolean().oneOf([true], 'Бул маалыматты толтуруңуз!'),
+    term2: Yup.boolean().oneOf([true], 'Бул маалыматты толтуруңуз!'),
+    term3: Yup.boolean().oneOf([true], 'Бул маалыматты толтуруңуз!'),
   });
 
   const { REACT_APP_API_URL } = process.env;
@@ -72,7 +72,7 @@ export default function ComplaintForm() {
       sendFiles(complaintId, values.complaint_files);
       setSubmitted(true);
       setLoading(false);
-      swal("Спасибо!", "Ваша жалоба была успешно отправлена!", "success");
+      swal("Рахмат!", "Даттанууңуз ийгиликтүү тапшырылды!", "success");
 
     } catch (error) {
       console.log(error.response);
@@ -96,8 +96,7 @@ export default function ComplaintForm() {
 
         <Form id="complaint-form" className="complaint-form">
           <label className="standart_p" htmlFor="#">
-            На какой орган Вы подаете жалобу? (на государственный орган, орган
-            местного самоуправления, предприятие госсектора, должностное лицо)
+          Сиз арызды кимге карата берип жатасыз?
           </label>
           <div id="complaint_target">
             <FormControl fullWidth>
@@ -113,7 +112,7 @@ export default function ComplaintForm() {
                 style={{ marginBottom: 15 }}
               >
                 {
-                  complaint_targets.map(option =>
+                  complaint_targets_kg.map(option =>
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -124,13 +123,12 @@ export default function ComplaintForm() {
             </FormControl>
 
             <label className="standart_p organization" htmlFor="#">
-              Укажите название организации или Ф.И.О., место работы и должность
-              лица, на которое подается жалоба
+            Мекеменин аталышы, кызмат адамынын аты-жѳнү, иштеген жери жана кызматы:
             </label>
 
             <Field
               as={CustomTextField}
-              placeholder="Название организации или Ф.И.О"
+              placeholder="Мекеменин аталышы же кызмат адамынын аты-жѳнү"
               className={classes.input}
               fullWidth
               variant="outlined"
@@ -141,9 +139,7 @@ export default function ComplaintForm() {
 
 
             <label className="standart_p organization" htmlFor="#">
-              Находится ли Ваша жалоба на стадии судебного или арбитражного
-              разбирательства или было ли по ней вынесено судебное или
-              арбитражное решение?
+            Сиздин арызыӊыз соттук/арбитраждык териштирүү баскычындабы же арыз боюнча соттук/арбитраждык чечим кабыл алынды беле?
             </label>
 
             <FormControl variant="outlined" fullWidth>
@@ -159,7 +155,7 @@ export default function ComplaintForm() {
                 style={{ marginBottom: 15 }}
               >
                 {
-                  confirm_options.map(option =>
+                  confirm_options_kg.map(option =>
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -170,8 +166,7 @@ export default function ComplaintForm() {
             </FormControl>
 
             <label className="standart_p organization" htmlFor="#">
-              Была ли использована возможность административного обжалования
-              Вашей жалобы хотя бы в одной инстанции?
+            Арыз боюнча жок дегенде бир инстанцияда административдик даттануу мүмкүнчүлүгүн пайдаландыӊыз беле? 
             </label>
 
             <FormControl variant="outlined" fullWidth>
@@ -187,7 +182,7 @@ export default function ComplaintForm() {
                 style={{ marginBottom: 15 }}
               >
                 {
-                  confirm_options.map(option =>
+                  confirm_options_kg.map(option =>
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -198,8 +193,7 @@ export default function ComplaintForm() {
             </FormControl>
 
             <label className="standart_p organization" htmlFor="#">
-              Прошёл ли один год с момента нарушения Ваших прав, свобод и
-              законных интересов?
+            Сиздин укуктарыӊыз, эркиндиктериӊиз же мыйзамдуу кызыкчылыктарыӊыз бузулган күндѳн тартып бир жыл ѳттүбү?
             </label>
 
             <FormControl variant="outlined" fullWidth>
@@ -215,7 +209,7 @@ export default function ComplaintForm() {
                 style={{ marginBottom: 15 }}
               >
                 {
-                  confirm_options.map(option =>
+                  confirm_options_kg.map(option =>
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -225,10 +219,10 @@ export default function ComplaintForm() {
               <ErrorMessage component={TextError} name="one_year" />
             </FormControl>
 
-            <p className="form-header">Информация о заявителе жалобы</p>
+            <p className="form-header">Арыз берүүчү жѳнүндѳ маалымат</p>
 
             <label className="standart_p" htmlFor="#">
-              Вы подаете жалобу в качестве ?
+            Сиз арызыңызды ким сыпатында берип жатасыз?
             </label>
 
             <FormControl variant="outlined" fullWidth>
@@ -244,7 +238,7 @@ export default function ComplaintForm() {
                 style={{ marginBottom: 15 }}
               >
                 {
-                  complaint_types.map(option =>
+                  complaint_types_kg.map(option =>
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -258,12 +252,12 @@ export default function ComplaintForm() {
               values.complaint_type === 'NP' ? (
                 <>
                   <label className="standart_p organization" htmlFor="#">
-                    Укажите Ф.И.О.:
+                  Аты-жөнүңүз:
                   </label>
 
                   <Field
                     as={CustomTextField}
-                    placeholder="Укажите Ф.И.О."
+                    placeholder="Аты-жөнүңүз"
                     className={classes.input}
                     fullWidth
                     variant="outlined"
@@ -271,12 +265,12 @@ export default function ComplaintForm() {
                   />
 
                   <label className="standart_p organization" htmlFor="#">
-                    ИНН:{" "}
+                  Идентификациялык жеке номериңиз:{" "}
                   </label>
 
                   <Field
                     as={CustomTextField}
-                    placeholder="ИНН"
+                    placeholder="Идентификациялык жеке номериңиз"
                     className={classes.input}
                     fullWidth
                     variant="outlined"
@@ -284,7 +278,7 @@ export default function ComplaintForm() {
                   />
 
                   <label className="standart_p" htmlFor="#">
-                    На основании какого документа Вы осуществляете свою деятельность?
+                  Ишмердигиӊизди эмненин негизинде жүргүзүп жатасыз?
                   </label>
 
                   <FormControl variant="outlined" fullWidth>
@@ -299,7 +293,7 @@ export default function ComplaintForm() {
                       value={values.document_type}
                     >
                       {
-                        document_types.map(option =>
+                        document_types_kg.map(option =>
                           <MenuItem key={option.value} value={option.value}>
                             {option.label}
                           </MenuItem>
@@ -311,12 +305,12 @@ export default function ComplaintForm() {
                   {values.document_type === "PATENT" ? (
                     <>
                       <label className="standart_p organization" htmlFor="#">
-                        Серия/номер патента:{" "}
+                      Патенттин сериясы жана номери:{" "}
                       </label>
 
                       <Field
                         as={CustomTextField}
-                        placeholder="Серия/номер патента"
+                        placeholder="Патенттин сериясы жана номери"
                         className={classes.input}
                         fullWidth
                         variant="outlined"
@@ -326,13 +320,12 @@ export default function ComplaintForm() {
                   ) : (
                       <>
                         <label className="standart_p organization" htmlFor="#">
-                          Номер свидетельства о государственной регистрации
-                  индивидуального предпринимателя:{" "}
+                        Жеке ишкердин мамлекеттик каттоосу жөнүндө күбөлүгүнүн номери:{" "}
                         </label>
 
                         <Field
                           as={CustomTextField}
-                          placeholder="Номер свидетельства о государственной регистрации индивидуального предпринимателя"
+                          placeholder="Жеке ишкердин мамлекеттик каттоосу жөнүндө күбөлүгүнүн номери"
                           className={classes.input}
                           fullWidth
                           variant="outlined"
@@ -344,12 +337,12 @@ export default function ComplaintForm() {
               ) : (
                   <>
                     <label className="standart_p organization" htmlFor="#">
-                      Укажите Полное официальное наименование юридического лица:
+                    Юридикалык жактын толук расмий аталышы:
                     </label>
 
                     <Field
                       as={CustomTextField}
-                      placeholder="Официальное наименование"
+                      placeholder="Расмий аталышы"
                       className={classes.input}
                       fullWidth
                       variant="outlined"
@@ -357,12 +350,12 @@ export default function ComplaintForm() {
                     />
 
                     <label className="standart_p organization" htmlFor="#">
-                      Ф.И.О. руководителя:
+                        Жетекчинин аты-жөнү:
                     </label>
 
                     <Field
                       as={CustomTextField}
-                      placeholder="Ф.И.О. руководителя"
+                      placeholder="Жетекчинин аты-жөнү"
                       className={classes.input}
                       fullWidth
                       variant="outlined"
@@ -370,14 +363,12 @@ export default function ComplaintForm() {
                     />
 
                     <label className="standart_p organization" htmlFor="#">
-                      Ф.И.О. заявителя и занимаемая должность (если жалоба подается не
-                      руководителем)
+                    Арыз берип жаткан адамдын аты-жөнү жана ээлеген кызматы (эгерде арыз жетекчи тарабынан берилбесе):
                     </label>
 
                     <Field
                       as={CustomTextField}
-                      placeholder="Ф.И.О. заявителя и занимаемая должность (если жалоба подается не
-                      руководителем)"
+                      placeholder="Арыз берип жаткан адамдын аты-жөнү жана ээлеген кызматы (эгерде арыз жетекчи тарабынан берилбесе)"
                       className={classes.input}
                       fullWidth
                       variant="outlined"
@@ -385,14 +376,12 @@ export default function ComplaintForm() {
                     />
 
                     <label className="standart_p organization" htmlFor="#">
-                      *Если жалоба подается не руководителем юридического лица,
-                      заявитель должен предоставить доверенность от имени юридического
-                      лица для представительства перед Бизнес-омбудсменом.
+                    * Эгерде арыз юридикалык жактын жетекчиси тарабынан берилбесе, арыз ээси Бизнес-омбудсмен алдында өкүлчүлүк кылуу үчүн юридикалык жактын атынан ишеним кат берүүгө тийиш.
                     </label>
 
                     <Field
                       as={CustomTextField}
-                      placeholder="ИНН"
+                      placeholder="Идентификациялык жеке номери"
                       className={classes.input}
                       fullWidth
                       variant="outlined"
@@ -400,12 +389,12 @@ export default function ComplaintForm() {
                     />
 
                     <label className="standart_p organization" htmlFor="#">
-                      Регистрационный номер Министерства юстиции КР:
+                    Кыргыз Республикасынын Юстиция министрлигиндеги каттоо номери:
                     </label>
 
                     <Field
                       as={CustomTextField}
-                      placeholder="Регистрационный номер Министерства юстиции КР"
+                      placeholder="Кыргыз Республикасынын Юстиция министрлигиндеги каттоо номери"
                       className={classes.input}
                       fullWidth
                       variant="outlined"
@@ -417,8 +406,7 @@ export default function ComplaintForm() {
 
 
             <label className="standart_p" htmlFor="#">
-              Регион осуществления деятельности заявителя, где произошло
-              нарушение прав, свобод и законных интересов заявителя:
+            Арыз ээси ишмердүүлүгүн жүргүзүп, анын укуктары, эркиндиктери же мыйзамдуу кызыкчылыктары бузулган аймак:
             </label>
 
             <FormControl variant="outlined" fullWidth>
@@ -434,7 +422,7 @@ export default function ComplaintForm() {
                 style={{ marginBottom: 15 }}
               >
                 {
-                  regions.map(option =>
+                  regions_kg.map(option =>
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -445,7 +433,7 @@ export default function ComplaintForm() {
             </FormControl>
 
             <label className="standart_p" htmlFor="#">
-              Сфера Вашей деятельности:
+            Ишмердүүлүгүӊүздүн чѳйрѳсү:
             </label>
 
             <FormControl variant="outlined" fullWidth>
@@ -461,7 +449,7 @@ export default function ComplaintForm() {
                 style={{ marginBottom: 15 }}
               >
                 {
-                  activities.map(option =>
+                  activities_kg.map(option =>
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -475,12 +463,12 @@ export default function ComplaintForm() {
               values.activity === 'OTHER' ? (
                 <>
                   <label className="standart_p organization" htmlFor="#">
-                    Другая сфера деятельности:
+                  Башка чѳйрѳ:
                   </label>
 
                   <Field
                     as={CustomTextField}
-                    placeholder="Другая сфера деятельности..."
+                    placeholder="Башка чѳйрѳ..."
                     className={classes.input}
                     fullWidth
                     variant="outlined"
@@ -491,12 +479,12 @@ export default function ComplaintForm() {
             }
 
             <label className="standart_p" htmlFor="#">
-              Опишите суть жалобы
+            Даттануунун мазмунун сыпаттаӊыз
             </label>
 
             <Field
               as={CustomTextField}
-              placeholder="Опишите суть жалобы..."
+              placeholder="Даттануунун мазмунун сыпаттаӊыз..."
               className={classes.input}
               fullWidth
               variant="outlined"
@@ -508,13 +496,12 @@ export default function ComplaintForm() {
             <ErrorMessage component={TextError} name="complaint_description" />
 
             <label className="standart_p" htmlFor="#">
-              Какие попытки были предприняты Вами самостоятельно для разрешения
-              жалобы?
+            Бул кѳйгѳйдү чечүү үчүн ѳз алдыӊызча кандай чараларды кѳрдүӊүз?
             </label>
 
             <Field
               as={CustomTextField}
-              placeholder="Какие попытки были предприняты...?"
+              placeholder="Кандай чараларды кѳрдүӊүз?...?"
               className={classes.input}
               fullWidth
               variant="outlined"
@@ -526,13 +513,12 @@ export default function ComplaintForm() {
             <ErrorMessage component={TextError} name="problem_solve" />
 
             <label className="standart_p" htmlFor="#">
-              Что, по Вашему мнению, необходимо сделать Бизнес-омбудсмену, чтобы
-              исправить ситуацию/решить проблему?
+            Сиздин пикириӊиз боюнча, Бизнес-акыйкатчы кырдаалды жакшыртуу үчүн / маселени чечүү үчүн эмне кылышы керек?
             </label>
 
             <Field
               as={CustomTextField}
-              placeholder="Ваше мнение..."
+              placeholder="Сиздин пикириӊиз..."
               className={classes.input}
               fullWidth
               variant="outlined"
@@ -543,16 +529,16 @@ export default function ComplaintForm() {
             />
             <ErrorMessage component={TextError} name="our_act" />
 
-            <p className="form-header">Контактные данные</p>
+            <p className="form-header">Байланыш маалымат</p>
 
 
             <label className="standart_p" htmlFor="#">
-              Ф.И.О
+            Аты-жѳнүӊүз
             </label>
 
             <Field
               as={CustomTextField}
-              placeholder="Ф.И.О"
+              placeholder="Аты-жѳнүӊүз"
               className={classes.input}
               fullWidth
               variant="outlined"
@@ -563,12 +549,12 @@ export default function ComplaintForm() {
 
 
             <label className="standart_p" htmlFor="#">
-              Адрес
+            Дарегиӊиз
             </label>
 
             <Field
               as={CustomTextField}
-              placeholder="Адрес"
+              placeholder="Дарегиӊиз"
               className={classes.input}
               fullWidth
               variant="outlined"
@@ -579,12 +565,12 @@ export default function ComplaintForm() {
             <ErrorMessage component={TextError} name="address" />
 
             <label className="standart_p" htmlFor="#">
-              Контактный телефон
+            Байланыш телефонуңуз
             </label>
 
             <Field
               as={CustomTextField}
-              placeholder="Контактный телефон"
+              placeholder="Байланыш телефонуңузн"
               className={classes.input}
               fullWidth
               variant="outlined"
@@ -592,12 +578,12 @@ export default function ComplaintForm() {
             />
 
             <label className="standart_p" htmlFor="#">
-              Электронная почта
+            Электрондук почтаңыз 
             </label>
 
             <Field
               as={CustomTextField}
-              placeholder="Электронная почта"
+              placeholder="Электрондук почтаңыз"
               className={classes.input}
               fullWidth
               variant="outlined"
@@ -617,7 +603,7 @@ export default function ComplaintForm() {
             <ErrorMessage component={TextError} name="complaint_files" />
 
             <label className="standart_p organization" htmlFor="#">
-              Каким способом Вы хотите получить ответ на Вашу жалобу:
+            Арызыӊызга жоопту эмне жол аркылуу алууну каалайсыз?
             </label>
 
             <FormControl variant="outlined" fullWidth>
@@ -633,7 +619,7 @@ export default function ComplaintForm() {
                 style={{ marginBottom: 15 }}
               >
                 {
-                  response_types.map(option =>
+                  response_types_kg.map(option =>
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -645,10 +631,7 @@ export default function ComplaintForm() {
             </FormControl>
 
             <label className="standart_p organization" htmlFor="#">
-              Желаете ли Вы, чтобы Ваша личность осталась анонимной для
-              государственных органов, органов местного самоуправления, а также
-              предприятий государственного сектора, против которых подана
-              жалоба?
+            Сиз мамлекеттик органдар, жергиликтүү ѳз алдынча башкаруу органдары, ошондой эле мамлекеттик сектордогу ишканалар үчүн ѳздүгүӊүздүн жашыруун калуусун каалайсызбы?
             </label>
 
             <FormControl variant="outlined" fullWidth>
@@ -663,7 +646,7 @@ export default function ComplaintForm() {
                 value={values.is_anonymous}
               >
                 {
-                  confirm_options.map(option =>
+                  confirm_options_kg.map(option =>
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -676,7 +659,7 @@ export default function ComplaintForm() {
               values.is_anonymous === 'YES' ? (
                 <>
                   <label className="standart_p" htmlFor="#">
-                    Если да, то укажите причину:
+                  Эгерде ооба деп жооп берсеңиз, себебин белгилеп коюңуз:
                   </label>
 
                   <Field
@@ -699,11 +682,7 @@ export default function ComplaintForm() {
                 className="standart_p"
                 style={{ color: "#707070", width: "80%" }}
               >
-                Я, как заявитель, несу полную ответственность за достоверность и
-                полноту предоставленных сведений и уведомлен о том, что в случае
-                предоставления недостоверной или неполной информации
-                Бизнес-омбудсмен может принять решение о прекращении
-                рассмотрения жалобы
+                Мен, арыз берүүчү катары, арызда камтылган маалыматтардын чындыкка дал келүүсү жана толук берилүүсү үчүн жооп берем, ошондой эле берилген маалыматтар чындыкка дал келбесе же толук эмес берилсе, Бизнес-омбудсмен ары кароону токтотуу чечим кабыл алышы мүмкүндүгү жөнүндө кабардар экендигимди ырастайм.
                 <br />
                 <br />
                 <ErrorMessage component={TextError} name="term1" />
@@ -734,16 +713,12 @@ export default function ComplaintForm() {
                 className="standart_p"
                 style={{ color: "#707070", width: "80%" }}
               >
-                Я, как заявитель, даю согласие на сбор и обработку моих
-                персональных данных и подтверждаю, что уведомлен о том, что мои
-                персональные данные будут включены в базу персональных данных
-                Института Бизнес-омбудсмена КР. Я также ознакомлен с правами
-                держателя (обладателя) персональных данных в соответствии
-                с&nbsp; <a
+                Мен, арыз берүүчү катары, менин жеке маалыматтарымдын топтолушуна жана иштелип чыгуусуна макулдугумду берем жана жеке маалыматтарымдын КР Бизнес-акыйкатчы институтунун маалымат базасына киргизиле тургандыгы жѳнүндѳ кабардар экендигимди ырастайм. Ошондой эле мен
+                <a
                   className="standart_p"
                   href="http://cbd.minjust.gov.kg/act/view/ru-ru/202269"
                   style={{ color: "var(--primary)" }}
-                >Законом КР "Об информации персонального характера"</a>
+                > «Жеке мүнѳздѳгү маалыматтар жѳнүндѳ»</a> Кыргыз Республикасынын Мыйзамына ылайык, жеке маалыматтардын кармоочусунун (ээсинин) укуктары менен тааныштым.
                 <br />
                 <br />
                 <ErrorMessage component={TextError} name="term2" />
@@ -773,10 +748,7 @@ export default function ComplaintForm() {
                 className="standart_p"
                 style={{ color: "#707070", width: "80%" }}
               >
-                Я, как заявитель, согласен с тем, что в случае, если дальнейшее
-                рассмотрение моей жалобы окажется невозможным без раскрытия моей
-                личности, Бизнес-омбудсмен может принять решение о прекращении
-                рассмотрения жалобы
+                Мен, арыз берүүчү катары, менин ѳздүгүм белгилүү болбогон учурда арызымды андан ары карап чыгуу мүмкүн болбосо, Бизнес-акыйкатчы арызымды карап чыгууну токтотуп коё ала тургандыгына макулдугумду билдирем.
                 <br />
                 <br />
                 <ErrorMessage component={TextError} name="term3" />
@@ -801,7 +773,7 @@ export default function ComplaintForm() {
             type="submit"
             className="form-button"
           >
-            Подать жалобу
+            Арыз берүү
           </button>
 
           <FormikErrorFocus

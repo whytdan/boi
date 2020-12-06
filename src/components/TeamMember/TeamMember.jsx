@@ -2,12 +2,14 @@ import React from "react";
 import itachi from "../../images/staff/worker.jpeg";
 import { Collapse } from "@material-ui/core";
 
-export default function TeamMember() {
+export default function TeamMember(props) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const { fullName, position, description, image } = props;
 
   return (
     <div className="worker">
@@ -15,11 +17,11 @@ export default function TeamMember() {
         <div className="worker-wrapper">
           <div
             className="worker-image"
-            style={{ backgroundImage: `url("${itachi}")` }}
+            style={{ backgroundImage: `url("${image}")` }}
           ></div>
           <div className="worker-title">
-            <h1>Ислан Джусупбаев</h1>
-            <p>специалист</p>
+          <h1>{fullName}</h1>
+          <p>{position}</p>
           </div>
 
           {!expanded ? (
@@ -141,11 +143,7 @@ export default function TeamMember() {
               </svg>
             </div>
             <p>
-            Ислан имеет значительный опыт в сфере разработки законодательства, регулирующего предпринимательскую и инвестиционную деятельность. На протяжении своей карьеры Ислан непосредственно занимался вопросами взаимодействия государственных органов с бизнес-ассоциациями и частными предпринимателями. Является участником различных площадок по улучшению условий деятельности предпринимателей, обладает большим опытом в содействии разрешению споров, возникающих между бизнесом и государственными органами.
-
-            <br/><br/>
-
-            Ислан имеет степени магистра юриспруденции по направлению "Международное право" Кыргызско-Российского Славянского университета и магистра экономики по направлению "Экономическое развитие и политика" университета города Кобе, Япония.
+            {description}
             </p>
           </div>
         </div>

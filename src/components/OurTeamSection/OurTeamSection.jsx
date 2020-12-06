@@ -1,13 +1,30 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Collapse from '@material-ui/core/Collapse';
 import TeamMember from "../TeamMember/TeamMember";
+import axios from "axios";
+import Loader from "../UI/Loader/Loader";
+import { LanguageContext } from "../../App";
 
 
 export default function OurTeamSection() {
 
+  const [teamList, setTeamList] = useState(null);
+  const { REACT_APP_API_URL } = process.env;
+  const langState = useContext(LanguageContext);
+
+    const fetchTeam = async () => {
+      const response = await axios(`${REACT_APP_API_URL}/${langState.lang}/team/`);
+      const data = response.data.results;
+      setTeamList(data);
+    }
+
+    useEffect(() => {
+      fetchTeam();
+    }, [langState.lang]);
+
   return (
     <section className="our-team-section">
-      <div className="mission-icon">
+      <div className="mission-icon" style={{marginBottom: 25}}>
         <svg
           className="dark-shadow"
           xmlns="http://www.w3.org/2000/svg"
@@ -84,19 +101,40 @@ export default function OurTeamSection() {
             </g>
           </g>
         </svg>
-        <h1>Наша команда</h1>
+        <h1>
+          {
+            langState.lang === 'ru' ? 'Наша команда' :
+            langState.lang === 'kg' ? 'Кызматкерлерибиз' :
+            'Our team'
+          }
+        </h1>
       </div>
-      <TeamMember/>
 
-      <div className="workers">
-      <TeamMember/>
-      <TeamMember/>
-      <TeamMember/>
-      <TeamMember/>
-      <TeamMember/>
-      <TeamMember/>
-
-      </div>
+      {teamList ? (
+        <>
+          <TeamMember
+            fullName={teamList[0].full_name}
+            position={teamList[0].position}
+            description={teamList[0].bio}
+            image={teamList[0].image}
+          />
+          <div className="workers">
+            {teamList.map((worker, index) => {
+              if (index !== 0) {
+                return (
+                  <TeamMember
+                    fullName={worker.full_name}
+                    position={worker.position}
+                    description={worker.bio}
+                    image={worker.image}
+                  />
+                )
+              }
+            })
+            }
+          </div>
+        </>
+      ) : null}
     </section>
   );
 }

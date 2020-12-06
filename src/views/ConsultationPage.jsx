@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import ConsultationForm from "../components/ConsultationForm/ConsultationForm";
 import BaseLayout from "../layouts/BaseLayout";
+import { LanguageContext } from "../App";
 
 export default function ConsultationPage() {
+
+  const langState = useContext(LanguageContext)
+
   return (
     <BaseLayout>
       <div style={{ height: 100 }}></div>
@@ -59,7 +63,13 @@ export default function ConsultationPage() {
               </g>
             </g>
           </svg>
-          <h1>Форма подачи заявки на консультацию</h1>
+          <h1>
+            {
+              langState.lang === 'ru' ? 'Форма подачи заявки на консультацию' : 
+              langState.lang === 'kg' ? 'Консультация алуу үчүн форма' : 
+              'Application form for consultation'
+            }
+          </h1>
         </div>
         <div className="complaint-form-wrapper">
           <ConsultationForm/>          

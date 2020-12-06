@@ -81,6 +81,7 @@ export default function BaseLayout(props) {
         className={clsx({
           [classes.contentShift]: openSidebar
         })}
+        // style={{paddingBottom: 50}}
       >
       {props.children}
       </main>

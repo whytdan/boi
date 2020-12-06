@@ -20,6 +20,7 @@
 .footer__section_boi_logo{
   width: 130px;
   height: 150px;
+  object-fit: contain;
 }
 
 .footer_about{

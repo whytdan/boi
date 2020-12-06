@@ -1,21 +1,21 @@
 import React from "react";
 import { Collapse } from "@material-ui/core";
 
-
-export default function FAQ() {
-
+export default function FAQ(props) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  const {question, answer} = props;
+
   return (
     <div className="question">
       <div>
         <div className="question-wrapper">
           <p>
-          Какие жалобы не рассматриваются Бизнес-омбудсменом?
+            {question}
           </p>
           {!expanded ? (
           <button 
@@ -90,12 +90,7 @@ export default function FAQ() {
         <div className="question-answer active">
           <div className="question-answer-wrapper">
             <p>
-              Жалобы, находящиеся на стадии судебного или арбитражного разбирательства, или в отношении которых были приняты судебные или арбитражные решения;
-              жалобы на законность и/или обоснованность любых судебных решений, постановлений и определений;
-              жалобы, возникшие в рамках хозяйственных отношений между субъектами предпринимательской деятельности;
-              жалобы, в рамках которых субъект предпринимательской деятельности, не исчерпал хотя бы один случай доступного административного обжалования в соответствии с законодательством и внутренними правилами стороны, против которой подается жалоба;
-              жалоба на нарушение прав субъекта предпринимательской деятельности, должна быть подана не позднее 1 года со дня вступления в силу обжалуемого документа, совершения действия или бездействия (решения) государственным органом;
-              анонимные жалобы.
+              {answer}
             </p>
           </div>
         </div>

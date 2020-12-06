@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import FAQ from "../components/FAQ/FAQ";
 import BaseLayout from "../layouts/BaseLayout";
+import axios from "axios";
+import Loader from "../components/UI/Loader/Loader";
+import { LanguageContext } from "../App";
 
 export default function FAQPage() {
+
+  const { REACT_APP_API_URL } = process.env;
+  const [faqs, setFaqs] = useState(null);
+
+  const langState = useContext(LanguageContext);
+
+  const fetchFaqs = async (url) => {
+    const response = await axios.get(url);
+    const data = response.data.results;
+    console.log(data);
+    setFaqs(data);
+  }
+
+  useEffect(() => {
+    const url = `${REACT_APP_API_URL}/${langState.lang}/faq/`;
+    fetchFaqs(url);
+  }, [langState.lang]);
+
+
   return (
     <BaseLayout>
       <div style={{ height: 100 }}></div>
@@ -71,14 +93,20 @@ export default function FAQPage() {
               </g>
             </g>
           </svg>
-          <h1>Часто Задаваемые Вопросы</h1>
+          <h1>
+            {
+              langState.lang === 'ru' ? 'Часто Задаваемые Вопросы' :
+              langState.lang === 'kg' ? 'Суроо-жооптор' :
+              'FAQ'
+            }
+            
+          </h1>
         </div>
-        <FAQ/>
-        <FAQ/>
-        <FAQ/>
-        <FAQ/>
-        <FAQ/>
-        <FAQ/>
+        {
+          faqs ? faqs.map((faq, index) => (
+          <FAQ question={faq.question} answer={faq.answer} key={index} />
+          )) : null
+        }
       </section>
     </BaseLayout>
   );

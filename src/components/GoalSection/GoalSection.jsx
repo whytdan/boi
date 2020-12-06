@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import goalImg from '../../images/goals/discussion.jpg';
 import goalImg2 from '../../images/goals/work-space.jpg';
 import goalImg3 from '../../images/goals/corruptioin.jpg';
+import axios from "axios";
+import { LanguageContext } from "../../App";
+
 
 export default function GoalSection() {
+  const { REACT_APP_API_URL } = process.env;
+  const langState = useContext(LanguageContext);
+
+  const [goals, setGoals] = useState(null);
+
+  const fetchGoals = async (url) => {
+    const response = await axios.get(url);
+    const data = response.data.results.slice(0, 3);
+    console.log(data);
+    setGoals(data);
+  }
+
+  useEffect(() => {
+    const url = `${REACT_APP_API_URL}/${langState.lang}/purposes/`;
+    fetchGoals(url);
+  }, [langState.lang]);
+
+
   return (
     <section className="goals-section" id="goals">
       <div className="mission-icon">
@@ -62,47 +83,32 @@ export default function GoalSection() {
             </g>
           </g>
         </svg>
-        <h1 id="goals">Наши цели</h1>
+        <h1 id="goals">
+          {
+            langState.lang === 'ru' ? 'Наши цели' :
+            langState.lang === 'kg' ? 'Институттун максаттары':
+            'Our goals'
+          }
+          
+        </h1>
       </div>
       <div className="goals">
-        <div className="single-goal">
-          <div
-            id="first-goal"
-            className="single-goal-image"
-            style={{ backgroundImage: `url("${goalImg}")` }}
-          ></div>
-          <div className="single-goal-text">
-            <p>
-            Содействие прозрачности деятельности государственных и муниципальных органов власти, предприятий государственного сектора
-            </p>
-          </div>
-        </div>
-
-        <div className="single-goal">
-          <div
-            id="first-goal"
-            className="single-goal-image"
-            style={{ backgroundImage: `url("${goalImg2}")` }}
-          ></div>
-          <div className="single-goal-text">
-            <p>
-            Содействие субъектам бизнеса по защите их прав, свобод и законных интересов
-            </p>
-          </div>
-        </div>
-
-        <div className="single-goal">
-          <div
-            id="first-goal"
-            className="single-goal-image"
-            style={{ backgroundImage: `url("${goalImg3}")` }}
-          ></div>
-          <div className="single-goal-text">
-            <p>
-            Предотвращение коррупции
-            </p>
-          </div>
-        </div>
+        {
+          goals ? goals.map((goal, index) => (
+            <div className="single-goal">
+              <div
+                id="first-goal"
+                className="single-goal-image"
+                style={{ backgroundImage: `url("${goal.image}")` }}
+              ></div>
+              <div className="single-goal-text">
+                <p>
+                  {goal.title}
+                </p>
+              </div>
+            </div>
+          )) : null
+        }
 
       </div>
     </section>
